@@ -26,7 +26,7 @@ pipeline {
 
         stage('SCM GitHub') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/UlasGultekin/devops-03-pipeline--gitops']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/UlasGultekin/devops-03-pipeline--gitops']])
             }
         }
 
