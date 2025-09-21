@@ -8,6 +8,7 @@ pipeline {
  
     environment {
         APP_NAME = "devops-03-pipeline--gitops"
+        IMAGE_TAG = "${env.BUILD_NUMBER}" 
     }
 
 
