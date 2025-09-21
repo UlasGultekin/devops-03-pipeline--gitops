@@ -47,7 +47,7 @@ pipeline {
 
 
 
-        stage("Push the changed deployment file to Git") {
+      /*  stage("Push the changed deployment file to Git") {
             steps {
                 sh """
                    git config --global user.name "UlasGultekin"
@@ -59,7 +59,41 @@ pipeline {
                   sh "git push https://github.com/UlasGultekin/devops-03-pipeline--gitops main"
                 }
             }
-        }
+        }*/
+stage("Push the changed deployment file to Git") {
+  steps {
+    withCredentials([usernamePassword(
+      credentialsId: 'Github',             // Jenkins'teki ID (büyük/küçük harfe dikkat)
+      usernameVariable: 'GIT_USER',
+      passwordVariable: 'GIT_TOKEN'
+    )]) {
+      sh '''#!/usr/bin/env bash
+                set -euo pipefail
+
+                git config user.name  "UlasGultekin"
+                git config user.email "gltknulas96@gmail.com"
+
+# (opsiyonel) detached HEAD ise branch'e geç
+                git checkout -B main origin/main || true
+
+                git add deployment.yaml || true
+
+# değişiklik yoksa fail etme
+                if git diff --cached --quiet; then
+                    echo "No changes to commit."
+                exit 0
+                fi
+
+                git commit -m "Updated Deployment Manifest"
+
+# Token'ı URL'de kullan; Jenkins maskeler
+                git push "https://${GIT_USER}:${GIT_TOKEN}@github.com/UlasGultekin/devops-03-pipeline--gitops" HEAD:main
+'''
+    }
+  }
+}
+
+
 
 
 
