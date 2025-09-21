@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: devops-03-pipeline-cd
-          image: ulasgltkn/devops-03-pipeline:1.0.37
+          image: ulasgltkn/devops-03-pipeline:
           resources:
             limits:
               memory: "256Mi"
