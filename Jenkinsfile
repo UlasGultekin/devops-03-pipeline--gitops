@@ -30,18 +30,20 @@ pipeline {
             }
         }
 
-         stage("Update the Deployment Tags") {
-            steps {
-                
-                sh """
-                   cat deployment.yaml
+       stage("Update the Deployment Tags") {
+    steps {
+        sh """
+           echo "Before update:"
+           cat deployment.yaml
 
-                   sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g'           deployment.yaml
-               
-                   cat deployment.yaml
-                """
-            }
-        }
+           sed -i "s|\\(image: *ulasgltkn/devops-03-pipeline:\\).*|\\1${IMAGE_TAG}|" deployment.yaml
+
+           echo "After update:"
+           cat deployment.yaml
+        """
+    }
+}
+
 
 
 
