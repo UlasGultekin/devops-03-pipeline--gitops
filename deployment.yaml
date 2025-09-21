@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: devops-03-pipeline-cd-deployment
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: devops-03-pipeline-cd
